@@ -15,6 +15,7 @@ Mobile('UpdateHTML').register(function(html){
 
 
 var os = require('os');
+var testss = require('test');
 var nis = os.networkInterfaces();
 
 var arrIP = [];
@@ -42,6 +43,6 @@ var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write('<p style="color:#006699">Visit JS/jxcore/app.js to update the code</p><hr/>');
-  res.end('<div>' + base_html.replace(/\n/g, "<br/>") + '</div>');
+  res.end('<div>' + base_html.replace(/\n/g, "<br/>") + testss.testFunc("AAA") + '</div>');
 }).listen(3000);
 console.log('Server running at (port:3000) ' + arrIP);

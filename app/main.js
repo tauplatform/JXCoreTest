@@ -97,6 +97,12 @@ JXmobile.prototype.register = function (target) {
 
 global.Mobile = JXmobile;
 
+global.Rho = {};
+global.Rho.System = {};
+global.Rho.System.getS = function () {
+    return "77.77";
+};
+
 console.warn("Platform", process.platform);
 console.warn("Process ARCH", process.arch);
 
