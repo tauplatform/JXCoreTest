@@ -97,11 +97,6 @@ JXmobile.prototype.register = function (target) {
 
 global.Mobile = JXmobile;
 
-global.Rho = {};
-global.Rho.System = {};
-global.Rho.System.getS = function () {
-    return "77.77";
-};
 
 console.warn("Platform", process.platform);
 console.warn("Process ARCH", process.arch);
@@ -299,6 +294,9 @@ if (isAndroid) {
 
 var loadMainFile = function (filePath) {
   try {
+console.log('#################');
+console.log(path.join(process.cwd(), filePath));
+console.log('#################');
     require(path.join(process.cwd(), filePath));
   } catch (e) {
     Error.captureStackTrace(e);
@@ -313,3 +311,12 @@ process.on('uncaughtException', function (e) {
 
 JXmobile('StartApplication').register(loadMainFile);
  
+var fs = require('fs');
+var jsp = path.join(process.cwd(), 'api/rho.js' )
+var jsf = fs.readFileSync(jsp, 'utf8');
+console.log('$$$$$$$$$$$$$$$$$');
+console.log(jsp);
+console.log('$$$$$$$$$$$$$$$$$');
+console.log(jsf);
+console.log('$$$$$$$$$$$$$$$$$');
+eval(jsf);
