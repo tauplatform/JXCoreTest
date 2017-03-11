@@ -34,5 +34,9 @@ class JxcoreTestController < Rho::RhoController
     render :action => :index, :back => '/app'
   end
 
+  def open_express
+      Rho::WebView.navigate('http://127.0.0.1:3000')
+  end
+
   
 end

@@ -1,59 +1,32 @@
-// Call a native method 'ScreenBrightness'
-//Mobile('ScreenBrightness').call(function(br){
-//  console.log("Screen Brightness", br);
-//});
+// This JavaScript file runs on JXcore
 
-console.log('$$$$$$$$$$$$   Start APP.JS !!!');
+var fs = require('fs');
 
 
-var pl = Rhoz.System.getProperty("platform");
-
-console.log('$$$$$$$$$$$$   Rhoz.System.getProperty("platform") = '+pl);
-
-
-
-var base_html = "Update TextBox on Mobile application to change this message";
-
-// Register UpdateHTML method so we can call it from native side
-Mobile('UpdateHTML').register(function(html){
-  base_html = html;
-
-  console.log("HTML text is updated to", html);
-});
-
-
-var os = require('os');
-var testss = require('test');
-var nis = os.networkInterfaces();
-
-var arrIP = [];
-for (var o in nis) {
-  if (!nis.hasOwnProperty(o)) continue;
-
-  var interfaces = nis[o];
-
-  for(var o in interfaces) {
-    if (interfaces[o].family == "IPv4" && interfaces[o].address != "127.0.0.1"
-              && interfaces[o].address.length) {
-      arrIP.push(interfaces[o].address);
-    }
-  }
+if (!fs.existsSync(__dirname + "/node_modules")) {
+  console.log("The node_modules folder not found. Please refer to www/jxcore/Install_modules.md");
+  return;
 }
 
-// calling a native method but
-// we don't know the number of arguments
-// Use function.apply
-var ipset = Mobile('SetIPAddress');
-ipset.call.apply(ipset, arrIP);
+var express = require('express');
+var app = express();
 
+app.get('/', function (req, res) {
+  res.send('Hello World! (' + Date.now() + ")");
+});
 
-var http = require('http');
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.write('<p style="color:#006699">Visit JS/jxcore/app.js to update the code</p><hr/>');
-  res.end('<div>' + base_html.replace(/\n/g, "<br/>") + testss.testFunc("AAA") + '</div>');
-}).listen(3000);
-console.log('Server running at (port:3000) ' + arrIP);
+var server = app.listen(3000, function () {
+  console.log("Express server is started. (port: 3000)");
+});
 
+var os = require('os');
+var net = os.networkInterfaces();
 
-//process.natives.mytestFunctionzzz("testStr", true);
+//for (var ifc in net) {
+//  var addrs = net[ifc];
+//  for (var a in addrs) {
+//    if (addrs[a].family == "IPv4") {
+//      Mobile('addIp').call(addrs[a].address);
+//    }
+//  }
+//}
