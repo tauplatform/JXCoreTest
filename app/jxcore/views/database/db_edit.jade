@@ -6,17 +6,15 @@ block content
     ul
   - for (var t in tables)
     li= tables[t].name
-      a(href= '/database/edit/' + resource + '/' + tables[t].name) 
-        'edit'  
-      
-      /
-      
-      a(href= '/database/view/' + resource + '/' + tables[t].name) 
-        'view'  
+      a(href= '/database/edit/' + resource + '/' + tables[t].name)
+        'edit'
+
+      a(href= '/database/view/' + resource + '/' + tables[t].name)
+        'view'
   br
-       
+
   form(method='post')
-    p Add a new table: 
-    input(type='text',name='table_name',id='table_name')        
+    p Add a new table:
+    input(type='text',name='table_name',id='table_name')
     input(type='submit',name='submit',value='Submit')
-  br        
+  br
