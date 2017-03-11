@@ -1,7 +1,15 @@
 // Call a native method 'ScreenBrightness'
-Mobile('ScreenBrightness').call(function(br){
-  console.log("Screen Brightness", br);
-});
+//Mobile('ScreenBrightness').call(function(br){
+//  console.log("Screen Brightness", br);
+//});
+
+console.log('$$$$$$$$$$$$   Start APP.JS !!!');
+
+
+var pl = Rhoz.System.getProperty("platform");
+
+console.log('$$$$$$$$$$$$   Rhoz.System.getProperty("platform") = '+pl);
+
 
 
 var base_html = "Update TextBox on Mobile application to change this message";
@@ -9,7 +17,7 @@ var base_html = "Update TextBox on Mobile application to change this message";
 // Register UpdateHTML method so we can call it from native side
 Mobile('UpdateHTML').register(function(html){
   base_html = html;
-  
+
   console.log("HTML text is updated to", html);
 });
 
@@ -21,9 +29,9 @@ var nis = os.networkInterfaces();
 var arrIP = [];
 for (var o in nis) {
   if (!nis.hasOwnProperty(o)) continue;
-  
+
   var interfaces = nis[o];
-  
+
   for(var o in interfaces) {
     if (interfaces[o].family == "IPv4" && interfaces[o].address != "127.0.0.1"
               && interfaces[o].address.length) {
@@ -46,3 +54,6 @@ http.createServer(function (req, res) {
   res.end('<div>' + base_html.replace(/\n/g, "<br/>") + testss.testFunc("AAA") + '</div>');
 }).listen(3000);
 console.log('Server running at (port:3000) ' + arrIP);
+
+
+//process.natives.mytestFunctionzzz("testStr", true);

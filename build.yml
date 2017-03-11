@@ -1,4 +1,6 @@
-sdk: "/Users/MOHUS/tauplatform/tau"
+#sdk: "/Users/MOHUS/tauplatform/NODEJS/tau.jxcore/"
+#sdk: "/Users/MOHUS/tauplatform/rhodes/"
+sdk: "../rhodes/"
 sdkversion: 1.0.2
 name: JXCoreTest
 version: 1.0
@@ -6,8 +8,8 @@ vendor: tau
 build: debug
 applog: rholog.txt
 iphone:
-  configuration: Release
-  sdk: iphonesimulator9.2
+  configuration: Debug
+  sdk: iphonesimulator10.2
   provisionprofile:
   codesignidentity: iPhone Developer
   entitlements: ""
@@ -32,7 +34,7 @@ win32:
   deploymsvc: 1
 
 #extensions: []
-extensions: ["jxcore"]
+#extensions: ["jxcore"]
 
 rhobundle:
   exclude_items:
