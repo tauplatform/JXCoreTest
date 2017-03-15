@@ -27,7 +27,7 @@
 //extern rho::String js_jxCore_entry_point(const char* szJSON);
 
 
-
+static bool our_is_http_server_started = false;
 
 static void callback(JXValue *results, int argc) { }
 
@@ -56,7 +56,9 @@ static void call_js_entry_point(JXValue *results, int argc) {
 }
 
 
-
+static void callServerStarted(JXValue *results, int argc) {
+    our_is_http_server_started = true;
+}
 
 static void callJXcoreNative(JXValue *results, int argc) {
     // registered callJXcoreNative extension - JS code call to Native
@@ -234,7 +236,7 @@ public:
         while( !isStopping() )
         {
             while (!m_bNoThreaded && !isStopping() && isNoCommands()) {
-                int waitInterval = (result == 0 ? 0.05 : 0.01);
+                int waitInterval = (result == 0 ? 0.05 : 0.001);
                 if ( wait(waitInterval) == 1 ) {
                     onTimeout();
                 }
@@ -297,8 +299,9 @@ public:
         JX_Initialize(mJxCoreFolderpath.c_str(), callback);
         JX_InitializeNewEngine();
         JX_DefineExtension("callJXcoreNative", callJXcoreNative);
-        JX_DefineExtension("defineEventCB", defineEventCB);
+        //JX_DefineExtension("defineEventCB", defineEventCB);
         JX_DefineExtension("js_entry_point", call_js_entry_point);
+        JX_DefineExtension("httpServerStarted", callServerStarted);
         
         
         //do_test_extension();
@@ -334,7 +337,14 @@ public:
     
     virtual void execute()
     {
-        callEventCallback_with_JSON("StartApplication", mAppFilepath.c_str());
+        //callEventCallback_with_JSON("StartApplication", mAppFilepath.c_str());
+        rho::String js_code = "Mobile.loadMainFile('"+mAppFilepath+"');";
+        
+        JXValue eval_res;
+        
+        LOG(INFO) + "jxCore.executeJS with " + js_code;
+        
+        bool is_ok = JX_Evaluate(js_code.c_str(), NULL, &eval_res);
         
     }
 private:
@@ -405,5 +415,8 @@ extern "C" void jxcoretau_start_app(const char* filename) {
     ourJxCoreQueue->addQueueCommand(new CjxCoreQueue_Command_startApp(filename));
 }
 
+extern "C" bool jxcoretau_is_http_server_started() {
+    return our_is_http_server_started;
+}
 
 

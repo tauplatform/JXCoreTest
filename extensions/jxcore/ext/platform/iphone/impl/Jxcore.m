@@ -2,14 +2,12 @@
 #import "Jxcore.h"
 
 
-extern void do_test_jxcore();
 
 @implementation Jxcore
 
 
 
 -(void) getPlatformName:(id<IMethodResult>)methodResult {
-    do_test_jxcore();
     [methodResult setResult:@"iOS"];
 }
 

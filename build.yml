@@ -7,6 +7,9 @@ version: 1.0
 vendor: tau
 build: debug
 applog: rholog.txt
+
+nodejs_application: true
+
 iphone:
   configuration: Debug
   sdk: iphonesimulator10.2
@@ -16,7 +19,7 @@ iphone:
   BundleIdentifier: com.rhomobile.jxcoretest
   BundleURLScheme: jxcoretest
   production:
-    ipa_itunesartwork_image: "./production/iTunesArtwork.png"  
+    ipa_itunesartwork_image: "./production/iTunesArtwork.png"
 wp8:
   productid: 'b33fdfe0-b5a0-0133-71ed-3c075460fec0'
 android:
