@@ -37,7 +37,7 @@ win32:
   deploymsvc: 1
 
 #extensions: []
-#extensions: ["jxcore"]
+extensions: ["jxcore"]
 
 rhobundle:
   exclude_items:
