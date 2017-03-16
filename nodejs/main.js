@@ -1,4 +1,3 @@
-// See the LICENSE file
 
 var path = require('path');
 var util = require('util');
@@ -26,8 +25,6 @@ var isAndroid = process.platform == "android";
 
 global.Mobile = JXmobile;
 
-console.warn("Platform", process.platform);
-console.warn("Process ARCH", process.arch);
 
 // see jxcore.java - jxcore.m
 process.setPaths();
@@ -464,53 +461,41 @@ global.Mobile.onError = function(message, stack) {
     //TODO
 };
 
+// define feunction for inform RHomobile about http server started
 global.Mobile.httpServerStarted = function() {
     process.natives.httpServerStarted();
 }
 
+// load Rhomobile API
+var fs = require('fs');
+var jsp = path.join(process.cwd(), '../rhoapi/rhoapi.js' );
+var jsf = fs.readFileSync(jsp, 'utf8');
+eval(jsf);
+
+Rho.Log.info("Platform = " + process.platform, 'Node.js JS');
+Rho.Log.info("Process ARCH = " + process.arch, 'Node.js JS');
+
+
 global.Mobile.loadMainFile = function (filePath) {
   try {
-console.log('#################');
-console.log(path.join(process.cwd(), filePath));
-console.log('#################');
     require(path.join(process.cwd(), filePath));
   } catch (e) {
     Error.captureStackTrace(e);
-    console.log('$$$$$$$$$$$$$ ERROR');
-    console.log(e.message);
-    console.log(JSON.stringify(e.stack));
-    Mobile.onError(e.message, JSON.stringify(e.stack));
+    Rho.Log.error('ERROR with loading app.js!', 'Node.js JS');
+    Rho.Log.error(e.toString(), 'Node.js JS');
   }
 };
 
 process.on('uncaughtException', function (e) {
   Error.captureStackTrace(e);
+  Rho.Log.error('ERROR:Exception !', 'Node.js JS');
+  Rho.Log.error(e.message.toString(), 'Node.js JS');
+  Rho.Log.error(JSON.stringify(e.stack).toString(), 'Node.js JS');
   Mobile.onError(e.message, JSON.stringify(e.stack));
 });
 
 
-
-
-var fs = require('fs');
-var jsp = path.join(process.cwd(), '../rhoapi/rhoapi.js' )
-
-console.log('@@@@@@@@@@@@@@@@@@   rhoapi path = '+jsp);
-
-var jsf = fs.readFileSync(jsp, 'utf8');
-console.log('@@@@@@@@@@@@@@@@@@   start eval rhoapi.js');
+// load Rhodes application code
+jsp = path.join(process.cwd(), '../rhoapp.js' );
+jsf = fs.readFileSync(jsp, 'utf8');
 eval(jsf);
-console.log('@@@@@@@@@@@@@@@@@@   finish eval rhoapi.js');
-
-console.log('@@@@@@@@@@@@@@@@@@   Rho = '+typeof Rho);
-console.log('@@@@@@@@@@@@@@@@@@   Rho.System = '+typeof Rho.System);
-console.log('@@@@@@@@@@@@@@@@@@   Rho.getProperty = '+typeof Rho.System.getProperty);
-
-
-Rho.System.getProperty("platform", function(res) {
-    console.log('$$$$$$$$$ callback Rho.System.getProperty("platform") = '+res);
-});
-
-var pl = Rho.System.NodejsServerPort;
-console.log('@@@@@@@@@@@@@@@@@@   Rho.System.NodejsServerPort = '+pl);
-
-console.log('************************   MOHUS 9  ***************************');

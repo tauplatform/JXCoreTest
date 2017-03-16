@@ -28,7 +28,7 @@ var table_view = require('./routes/database/table_view'); // view a table's data
 
 var app = express();
 
-console.log("$$$$$$$$$$$$$$$$$ __dirname = "+__dirname);
+Rho.Log.info("$$$$$$$$$$$$$$$$$ __dirname = "+__dirname, 'Node.js JS');
 
 // all environments
 app.set('port', server_port);
@@ -62,6 +62,6 @@ app.post('/database/edit/:db_resource/:table', table_edit.post);
 app.get('/database/view/:db_resource/:table', table_view.get);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port') + '. Debug mode: ' + environment.isDebug());
+  Rho.Log.info('Express server listening on port ' + app.get('port') + '. Debug mode: ' + environment.isDebug(), 'Node.js JS');
   Mobile.httpServerStarted();
 });
