@@ -4,6 +4,7 @@ rholog-*
 sim-*
 
 # build output
+bin/
 public/api/generated/
 .cbc
 
