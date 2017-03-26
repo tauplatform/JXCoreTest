@@ -18,8 +18,6 @@ iphone:
   entitlements: ""
   BundleIdentifier: com.rhomobile.jxcoretest
   BundleURLScheme: jxcoretest
-  production:
-    ipa_itunesartwork_image: "./production/iTunesArtwork.png"
 wp8:
   productid: 'b33fdfe0-b5a0-0133-71ed-3c075460fec0'
 android:
